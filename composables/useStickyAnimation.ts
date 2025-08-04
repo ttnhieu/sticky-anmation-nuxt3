@@ -46,8 +46,8 @@ export const useStickyBox = (
     const stickyStartPoint = parentContainer.offsetTop - topOffset;
 
     const finalScrollDelta =
-      stickyStartPoint - expansionStartScrollY - bottomOffset;
-    const stickyHeightWhenLocked = minHeight + Math.max(0, finalScrollDelta);
+      stickyStartPoint - expansionStartScrollY;
+    const stickyHeightWhenLocked = minHeight + Math.max(0, finalScrollDelta - bottomOffset);
     const finalStickyHeight = Math.min(stickyHeightWhenLocked, maxHeight);
 
     const stickyEndPoint =
@@ -60,8 +60,8 @@ export const useStickyBox = (
 
     // --- Logic chính chia theo 3 trạng thái ---
     if (scrollY < stickyStartPoint) {
-      const scrollDelta = scrollY - expansionStartScrollY - bottomOffset;
-      newHeight = minHeight + Math.max(0, scrollDelta);
+      const scrollDelta = scrollY - expansionStartScrollY;
+      newHeight = minHeight + Math.max(0, scrollDelta - bottomOffset);
     } else if (scrollY >= stickyStartPoint && scrollY < stickyEndPoint) {
       newHeight = finalStickyHeight;
     } else {
@@ -77,9 +77,7 @@ export const useStickyBox = (
   // Toàn bộ logic DOM phải được chạy sau khi component đã được mount
   onMounted(() => {
     const stickyBox = stickyBoxRef.value;
-    console.log('🚀 ~ useStickyBox ~ stickyBox:', stickyBox);
     const parentContainer = parentContainerRef.value;
-    console.log('🚀 ~ useStickyBox ~ parentContainer:', parentContainer);
 
     // Chỉ thực thi ở phía client và khi các element tồn tại
     if (process.client && stickyBox && parentContainer) {

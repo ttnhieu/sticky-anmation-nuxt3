@@ -28,7 +28,8 @@ x
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useStickyBox } from '@/composables/useStickyAnimation';
+// import { useStickyBox } from '@/composables/useStickyAnimation';
+import { useStickyExpansion } from '@/composables/useStickyExpansion';
 
 // --- Bước 1: Tạo template refs ---
 // Các ref này phải có tên khớp với thuộc tính `ref` trong template
@@ -37,5 +38,6 @@ const stickyBox = ref<HTMLElement | null>(null);
 
 // --- Bước 2: Gọi composable ---
 // Truyền các refs và các tùy chọn tùy chỉnh nếu cần
-useStickyBox(stickyBox, parentContainer);
+// useStickyBox(stickyBox, parentContainer);
+useStickyExpansion(stickyBox, parentContainer);
 </script>
